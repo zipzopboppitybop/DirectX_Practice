@@ -1,9 +1,15 @@
 #include <Windows.h>
+#include "WindowsMessageMap.h"
 #include <iostream>
 
-// Window Behavior
+// Window Behavior/Procedure
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	// Console log the msgs
+	static WindowsMessageMap mm;
+	OutputDebugString(mm(msg, lParam, wParam).c_str());
+
+	// Different handling for each msg
 	switch (msg)
 	{
 	// Stop App when window is closed
@@ -49,6 +55,7 @@ int CALLBACK WinMain(
 		200,200,640,480,
 		nullptr,nullptr,hInstance,nullptr
 		);
+
 	// Actually show the created window
 	ShowWindow(hWnd, SW_SHOW);
 
